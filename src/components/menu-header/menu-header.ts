@@ -3,7 +3,9 @@ import { App } from 'ionic-angular';
 
 import { LoginPage } from '../../pages/user/login/login';
 import { SignUpPage } from '../../pages/user/signup/signup';
-import { AuthService } from '../../providers/auth-service';
+import { VehicleListPage } from '../../pages/vehicle/list/vehicle-list'; 
+import { AuthService } from '../../services/auth-service';
+import { MenuService } from '../../services/menu-service';
 
 import { User } from '../../models/user.model';
 
@@ -18,7 +20,8 @@ export class MenuHeaderComponent {
 
   constructor(
     public appCtrl: App,
-    public authService : AuthService
+    public authService : AuthService,
+    public menuService : MenuService
   ){
     /** Suscripción al observable que retornará el estado de sesión */
     this.authService.isAuthenticated.subscribe((isAuthenticated) => {
@@ -43,6 +46,7 @@ export class MenuHeaderComponent {
 
   Logout(){
     this.authService.logout();
-    this.appCtrl.getRootNav().setRoot(LoginPage);
+    this.menuService.resetMenu();
+    this.appCtrl.getRootNav().setRoot(VehicleListPage);
   }
 }

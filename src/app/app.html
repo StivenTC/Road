@@ -1,10 +1,10 @@
 <ion-menu [content]="content">
     <ion-header class="header-md--plane">
-        <menu-header></menu-header>
+        <menu-header></menu-header>        
     </ion-header>
     <ion-content>
         <ion-list class="mrgt-1em">
-            <ion-item no-lines class="item-inner--bderb-none" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+            <ion-item no-lines class="item-inner--bderb-none" menuClose ion-item *ngFor="let p of pages; let index=index" [ngClass]="{'item-menu': index==2}"  (click)="openPage(p)">
                 <ion-icon color="indigo" name="{{p.icon}}" item-left></ion-icon>
                 {{p.title}}                 
             </ion-item>

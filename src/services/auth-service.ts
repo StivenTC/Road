@@ -34,7 +34,7 @@ export class AuthService {
     }
   }
 
-  public login(credentials): Observable<User> {
+  public login(credentials): Observable<any> {
     return this.apiService.post('/user/login', credentials)
     .map(
       data => {
@@ -49,7 +49,25 @@ export class AuthService {
   }
 
   public signUp(User) {
+    return this.apiService.post('/user/signup', User)
+    .map(
+      data => {
+        if(data.token){
+          this.tokenService.saveToken(data.token);
+          this.setUserSesion();
+          return data;
+        } else {
+           return data[0].description;
+        }
+    })
+  }
 
+  public setCurrentUser(user: User){
+    this.currentUserSubject.next(user);
+  }
+
+  public isLogin(){
+    return this.tokenService.getToken();
   }
 
 /** Se obtiene el payload del token como un objeto de tipo usuario :(

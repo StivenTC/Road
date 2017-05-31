@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-navbar color="red">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title *ngIf="!showSearchBar" class="tracking-in-expand">Usuarios</ion-title>
+        <ion-searchbar [(ngModel)]="search" placeholder="Buscar" *ngIf="showSearchBar" class="search-input" animated="true" autocomplete="on" autocorrect="on">
+        </ion-searchbar>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-list>
+        <ion-item>
+            <ion-label>Filtrando por </ion-label>
+            <ion-select cancelText="Cancelar" okText="Aceptar" (ionChange)="onInput($event)">
+                <ion-option value="all" selected>Todos</ion-option>
+                <ion-option *ngFor="let rol of rols" value="{{rol.nombre}}">{{rol.nombre}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <section *ngIf="users">
+            <ion-card *ngFor="let user of users">
+                <ion-item>
+                    <ion-avatar item-left>
+                        <img src="{{user.foto}}">
+                    </ion-avatar>
+                    <h2>{{user.nombres}} {{user.apellidos}}</h2>
+                    <p *ngFor="let rol of user.rols">{{rol}}</p>
+                </ion-item>
+                <ion-row>
+                    <ion-col icon-left clear small class="col-80">
+                        <ion-item icon-left clear small (click)="SelectedRol(user)">
+                            <h2>Cambiar rol</h2>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col center text-center class="col-20 pad-top-1em brd-lft">
+                        <ion-note *ngIf="user.estado == 0" (click)="changeStateUser(user)">
+                            Habilitar
+                        </ion-note>
+                        <ion-note *ngIf="user.estado == 1" (click)="changeStateUser(user)">
+                            Inhabilitar
+                        </ion-note>
+                    </ion-col>
+                </ion-row>
+            </ion-card>
+        </section>
+    </ion-list>
+</ion-content>
