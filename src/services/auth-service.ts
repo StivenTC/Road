@@ -35,12 +35,14 @@ export class AuthService {
   }
 
   public login(credentials): Observable<any> {
+    console.log(credentials);
     return this.apiService.post('/user/login', credentials)
     .map(
       data => {
         if(data.token){
           this.tokenService.saveToken(data.token);
           this.setUserSesion();
+          console.log(data);
           return data;
         } else {
            return data[0].description;

@@ -25,7 +25,48 @@ export class UserService {
         return data;
       });
   }
-
+  public getCategories(usrId) {
+    return this.apiService.get('/user/getCategories?user='+ usrId)
+      .map(
+      data => {
+        return data[0];
+      });
+  }
+    public getActivities(catId) {
+    return this.apiService.get('/user/getActivities'+ catId)
+      .map(
+      data => {
+        return data[0];
+      });
+  }
+    public addCategory(data: any) {
+    return this.apiService.post('/user/addCategories', data)
+      .map(
+      data => {
+        return data;
+      });
+  }   
+   public addActivity(data: any) {
+    return this.apiService.post('/user/addActivity', data)
+      .map(
+      data => {
+        return data;
+      });
+  }
+     public addNote(data: any) {
+    return this.apiService.post('/user/addNote', data)
+      .map(
+      data => {
+        return data;
+      });
+  }
+      public getNotes(actId) {
+    return this.apiService.get('/user/getNotes'+ actId)
+      .map(
+      data => {
+        return data[0];
+      });
+  }
   public getReserveClient(history: string) {
     return this.apiService.get('/reserve/get-reserve-client?history=' + history)
       .map(

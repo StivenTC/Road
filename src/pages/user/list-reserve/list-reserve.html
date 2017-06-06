@@ -3,24 +3,35 @@
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title *ngIf="!showSearchBar" class="tracking-in-expand">Reservas</ion-title>
+        <ion-title *ngIf="!showSearchBar" class="tracking-in-expand">Actividades</ion-title>
         <ion-searchbar [(ngModel)]="search" placeholder="Buscar" *ngIf="showSearchBar" class="search-input" animated="true" autocomplete="on" autocorrect="on">
         </ion-searchbar>
         <ion-buttons end>
-            <button ion-button color="light" (click)="btnSearch()">
-                <ion-icon name="search"></ion-icon>
-            </button>
-            <button ion-button color="light" (click)="test('Reservar')">
-                <ion-icon name="ios-car"></ion-icon>
-            </button>
-            <button ion-button color="light" (click)="goToProfile()">
-                <ion-icon name="person"></ion-icon>
+            <button ion-button color="light" (click)="addActivityPrompt()">
+                <ion-icon name="add"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
-    <h1>list reserve</h1>
+<ion-content>
+    <ion-list>
+        <ion-item-sliding *ngFor="let activity of activities">
+            <ion-item>
+                <ion-thumbnail class="float-left" item-start>
+                    <img src="{{activity.img}}">
+                </ion-thumbnail>
+                <h2 class="mrg-r">{{activity.name}}</h2>
+                <p class="mrg-l">{{activity.descripcion}}</p>
+                <button class="mrg-l" ion-button clear item-end (click)="goToNotes(activity.id)">Ver notas</button>
+            </ion-item>
+            <ion-item-options side="right">
+                <button ion-button color="danger">
+                        <ion-icon name="delete"></ion-icon>
+                        Eliminar
+                    </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
 </ion-content>
